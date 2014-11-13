@@ -1,0 +1,22 @@
+<!--
+Author: David Moody
+-->
+
+<template name="party-details.html">
+    <h2>Party Details</h2>
+    <input ng-model="party.name" ng-disabled="party.owner != currentUser._id">
+    <input ng-model="party.description" ng-disabled="party.owner != currentUser._id">
+    <label>Is public</label>
+    <input type="checkbox" ng-model="party.isPublic" ng-disabled="party.owner != currentUser._id">
+
+    <ul ng-show="canInvite()" >
+        Users to Invite:
+        <li ng-repeat="user in users | uninvited:party">
+            <div>[[ user | displayName ]]</div>
+            <button ng-click="invite(user)">Invite</button>
+        </li>
+        <li ng-if="(users | uninvited:party).length <= 0">
+            Everyone is already invited.
+        </li>
+    </ul>
+</template>
